@@ -17,6 +17,12 @@ export default function Home() {
           className="border-2 border-gray-500 rounded w-36 h-10 font-semibold"
         />
       </Header>
+      <ul className="flex flex-row w-full h-full gap-20 overflow-scroll">
+        <CardProduct />
+        <CardProduct />
+        <CardProduct />
+      </ul>
+      {/* <Gallery></Gallery> */}
       {/* <Footer/> */}
     </main>
   );
