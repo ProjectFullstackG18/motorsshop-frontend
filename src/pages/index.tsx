@@ -4,6 +4,7 @@ import { Footer } from "@/components/footer/footer";
 import { Header } from "@/components/header/header";
 import { Button } from "@/components/button/button";
 import { CardProduct } from "@/components/cards/productCard";
+import { Gallery } from "@/components/gallery/gallery";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -23,6 +24,7 @@ export default function Home() {
         <CardProduct />
         <CardProduct />
       </ul>
+      {/* <Gallery></Gallery> */}
       {/* <Footer/> */}
     </main>
   );
