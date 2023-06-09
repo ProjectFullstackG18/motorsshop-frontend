@@ -7,7 +7,7 @@ interface IPropsSubcontainer {
 
 export const Subcontainer = ({ children, classname }: IPropsSubcontainer) => {
   return (
-    <section className={`flex flex-col  p-10 gap-6  ${classname}`}>
+    <section className={`flex flex-col gap-6 p-2  ${classname}`}>
       {children}
     </section>
   );

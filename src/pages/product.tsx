@@ -56,18 +56,18 @@ const ProductView: React.FC = () => {
   console.log(abreviationName);
 
   return (
-    <div className="bg-grey8">
+    <div className="bg-grey8 w-screen">
       {/* <Header>
         {" "}
         <></>
       </Header> */}
       <div className="w-full h-[33rem] bg-brand2 absolute"></div>
-      <main className="flex flex-wrap w-[80rem] max-w-full m-auto justify-between">
-        <Subcontainer classname=" w-8/12 z-10 min-with-50">
+      <main className="flex flex-wrap  w-[80rem]  max-w-[100vw] m-auto justify-between">
+        <Subcontainer classname="w-screen z-10 lg:max-w-[68%] ">
           <div className="flex justify-center w-full bg-whiteFixed py-8 rounded">
             <img className="w-4/5" src={data.images[0].URL} alt="car" />
           </div>
-          <div className="flex justify-center align-middle w-full flex-col gap-8 bg-whiteFixed p-8 rounded ">
+          <div className="flex justify-center align-middle w-full flex-col gap-8 bg-whiteFixed p-6 rounded ">
             <h2 className="text-xl font-semibold">
               {data.brand} - {data.model}
             </h2>
@@ -89,21 +89,21 @@ const ProductView: React.FC = () => {
               className={"bg-brand1 w-32 rounded p-1 text-brand4"}
             ></Button>
           </div>
-          <div className="flex justify-center w-full flex-col gap-8 bg-whiteFixed p-8 rounded">
+          <div className="flex justify-center w-full flex-col gap-8 bg-whiteFixed p-6 rounded">
             <h2 className="text-xl font-semibold">Descrição</h2>
             <p>{data.description}</p>
           </div>
         </Subcontainer>
 
-        <Subcontainer classname="w-4/12 z-10 ">
-          <div className="flex flex-col w-full  bg-whiteFixed rounded p-8">
+        <Subcontainer classname="w-screen z-10 lg:max-w-[28%] ">
+          <div className="flex flex-col w-full  bg-whiteFixed rounded p-6">
             <h2 className="text-xl font-semibold py-2">Fotos</h2>
             <div className="flex flex-wrap justify-between w-full gap-y-4 ">
               {data.images.map((img) => {
                 return (
                   <img
                     key={img.id}
-                    className="w-[5.2rem] p-1 py-4 bg-grey7 rounded"
+                    className="w-[5rem] p-1 py-4 bg-grey7 rounded"
                     src={img.URL}
                     alt="car"
                   />
@@ -112,7 +112,7 @@ const ProductView: React.FC = () => {
             </div>
           </div>
 
-          <div className="flex justify-center w-full flex-col gap-4 bg-whiteFixed p-8 rounded">
+          <div className="flex justify-center w-full flex-col gap-4 bg-whiteFixed p-8">
             <span className="bg-brand1 text-whiteFixed font-medium rounded-full w-20 h-20 text-center align-middle pt-4 text-4xl m-auto">
               {abreviationName[0][0] + abreviationName[1][0]}
             </span>
@@ -123,7 +123,7 @@ const ProductView: React.FC = () => {
             <Button
               text="Ver todos anuncios"
               type="button"
-              className="bg-grey1 text-sm text-grey7 p-2 rounded w-2/3 m-auto"
+              className="bg-grey1 text-grey4 p-2 rounded w-2/3 m-auto"
             ></Button>
           </div>
         </Subcontainer>
