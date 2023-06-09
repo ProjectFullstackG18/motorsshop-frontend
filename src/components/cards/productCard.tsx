@@ -6,7 +6,7 @@ export const CardProduct = () => {
   return (
     <li className="min-w-312px max-w-312px h-370px flex flex-col justify-center pt-10px">
       <figure className="h-152px flex flex-row-reverse m-0-auto relative">
-        <Image src={car_image} alt="alo alo" />
+        <Image src={car_image} alt="car_image" />
       </figure>
       <h2 className="font-medium inter flex flex-row justify-center	items-center px4-px8 w-600px h-24px rounded-4px flex-none order-none flex-grow-0">
         {" "}
