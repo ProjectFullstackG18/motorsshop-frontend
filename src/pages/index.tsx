@@ -6,6 +6,7 @@ import { Button } from "@/components/button/button";
 import { CardProduct } from "@/components/cards/productCard";
 import { Gallery } from "@/components/gallery/gallery";
 import { DashboardCover } from "@/components/cover/coverHomepage";
+import { AsideFilter } from "@/components/asideFilter";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -21,14 +22,17 @@ export default function Home() {
         />
       </Header>
       <DashboardCover />
-      <section>
-        <ul className="flex flex-row w-full h-full gap-20 overflow-scroll">
-          <CardProduct />
-          <CardProduct />
-          <CardProduct />
-        </ul>
-      </section>
       {/* <Gallery></Gallery> */}
+
+      <div>
+        {/* <Gallery>
+          <CardProduct />
+          <CardProduct />
+          <CardProduct />
+        </Gallery> */}
+        <AsideFilter />
+      </div>
+
       {/* <Footer/> */}
     </main>
   );
