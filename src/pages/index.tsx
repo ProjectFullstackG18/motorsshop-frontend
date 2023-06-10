@@ -14,11 +14,11 @@ export default function Home() {
   return (
     <main>
       <Header>
-        <Button text="Fazer Login" type="button" className="font-semibold" />
+        <Button text="Fazer Login" type="button"  />
         <Button
           text="Cadastrar"
           type="button"
-          className="border-2 border-gray-500 rounded w-36 h-10 font-semibold"
+          className="border-2 border-grey6 rounded w-36 h-10 font-semibold"
         />
       </Header>
       <DashboardCover />
@@ -33,7 +33,7 @@ export default function Home() {
         <AsideFilter />
       </div>
 
-      {/* <Footer/> */}
+        <Footer/>
     </main>
   );
 }
