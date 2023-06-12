@@ -4,7 +4,7 @@ import car_image from "../img/134-1345584_mercedes-benz-s-class-car-png-image-me
 
 export const CardProduct = () => {
   return (
-    <li className="min-w-312px max-w-312px h-370px flex flex-col justify-center pt-10px">
+    <li className="min-w-312px max-w-312px h-370px flex flex-col pt-10px">
       <figure className="h-152px flex flex-row-reverse m-0-auto relative">
         <Image src={car_image} alt="car_image" />
       </figure>
