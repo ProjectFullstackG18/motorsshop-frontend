@@ -14,7 +14,7 @@ export default function Home() {
   return (
     <main>
       <Header>
-        <Button text="Fazer Login" type="button"  />
+        <Button text="Fazer Login" type="button" />
         <Button
           text="Cadastrar"
           type="button"
@@ -39,12 +39,16 @@ export default function Home() {
         </Gallery>
       </div>
       <div className="md:hidden block flex gap-5 flex-col justify-center items-center">
-        <Button text="Filtros" type="button" className="bg-brand2 w-[279px] h-[48px] rounded text-grey10 font-semibold"/>
+        <Button
+          text="Filtros"
+          type="button"
+          className="bg-brand2 w-[279px] h-[48px] rounded text-grey10 font-semibold"
+        />
         <p className="text-grey3 font-bold">1 de 2</p>
         <p className="text-brand2 font-bold">Seguinte &gt; </p>
       </div>
 
-        <Footer/>
+      <Footer />
     </main>
   );
 }
