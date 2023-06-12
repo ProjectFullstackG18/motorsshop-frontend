@@ -9,7 +9,7 @@ interface createModalProps {
 export const CreateModal = ({ titleModal, children }: createModalProps) => {
   return (
     <div>
-      <Modal isOpen={() => console.log("open")}>
+      <Modal isOpen={true}>
         <div>
           <h4>{titleModal}</h4>
           <button onClick={() => console.log("close")}>X</button>

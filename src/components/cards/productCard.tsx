@@ -4,9 +4,9 @@ import car_image from "../img/134-1345584_mercedes-benz-s-class-car-png-image-me
 
 export const CardProduct = () => {
   return (
-    <li className="min-w-312px max-w-312px h-370px flex flex-col justify-center pt-10px">
-      <figure className="h-152px flex flex-row-reverse m-0-auto relative">
-        <Image src={car_image} alt="alo alo" />
+    <li className="min-w-320px max-w-312px h-370px flex flex-col justify-center pt-10px">
+      <figure className="h-152px flex flex-row-reverse m-0-auto relative bg-grey7">
+        <Image src={car_image} alt="alo alo" className="p-8" />
       </figure>
       <h2 className="font-medium inter flex flex-row justify-center	items-center px4-px8 w-600px h-24px rounded-4px flex-none order-none flex-grow-0">
         {" "}
