@@ -3,7 +3,7 @@ import React from "react";
 export const AsideFilter: React.FC = () => {
   return (
     <>
-      <aside className="flex flex-col max-w-xs select-text ml-4">
+      <aside className="flex flex-col max-md:hidden max-w-xs select-text ml-4">
         <div className="flex flex-col">
           <div className="font-lexend font-semibold text-2xl my-8">Marca</div>
           <ul>
