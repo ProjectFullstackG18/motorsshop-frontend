@@ -1,16 +1,28 @@
-import React from 'react'
+import React from "react";
 
 interface IButtonProps {
-    type: "button" | "submit"
-    className?: string
-    text: string
-    callback?: () => void
+  type: "button" | "submit";
+  className?: string;
+  text: string;
+  callback?: () => void;
+  disable?: boolean;
 }
 
-export const Button = ({type, text, className, callback}: IButtonProps) => {
+export const Button = ({
+  type,
+  text,
+  className,
+  callback,
+  disable,
+}: IButtonProps) => {
   return (
-    <button className={className} type={type} onClick={callback}>
-        {text}
+    <button
+      disabled={disable}
+      className={className}
+      type={type}
+      onClick={callback}
+    >
+      {text}
     </button>
-  )
-}
+  );
+};
