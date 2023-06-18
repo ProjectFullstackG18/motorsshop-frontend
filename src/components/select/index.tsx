@@ -8,6 +8,7 @@ interface IInputProps {
   disable?: boolean;
   children: ReactNode;
   onChange?: (e: ChangeEvent<HTMLSelectElement>) => void;
+  defaultValue?: string;
 }
 
 export const Select = ({
@@ -18,6 +19,7 @@ export const Select = ({
   disable,
   children,
   onChange,
+  defaultValue,
 }: IInputProps) => {
   return (
     <>
@@ -28,6 +30,7 @@ export const Select = ({
         className="rounded px-3 h-12 border-2 border-grey8 bg-grey11 text-sm outline-grey3"
         disabled={disable}
         required
+        defaultValue={defaultValue}
         name={labelName}
         {...register}
         onChange={(e: ChangeEvent<HTMLSelectElement>) => {

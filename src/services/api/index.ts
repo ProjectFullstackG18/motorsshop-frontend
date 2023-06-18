@@ -9,7 +9,8 @@ api.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem("motorshop@token");
     if (token) {
-      config.headers.Authorization = JSON.parse(token).token;
+      console.log(token);
+      config.headers.Authorization = "Baerer " + token;
     }
     return config;
   },
