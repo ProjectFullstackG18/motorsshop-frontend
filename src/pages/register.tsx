@@ -9,13 +9,13 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { api } from "@/services/api";
-import Modal from "react-modal";
 import Link from "next/link";
-import { IoMdClose } from "react-icons/io";
+import { ModalM } from "@/components/modal/modal";
 
 const Register: React.FC = () => {
   const [isSaller, setIsSaller] = useState(false);
   const [modalSuccess, setModalSuccess] = useState(false);
+  const [modalNewCar, setModalNewCar] = useState(true);
 
   const registerSchena = yup.object().shape({
     name: yup
@@ -334,21 +334,12 @@ const Register: React.FC = () => {
       </form>
       <Footer />
 
-      <Modal
+      <ModalM
         isOpen={modalSuccess}
-        className="w-[32rem] max-w-[96vw] bg-whiteFixed m-auto mt-24 gap-6 p-6 pb-10 rounded-lg flex flex-col"
-        style={{
-          overlay: {
-            backgroundColor: "rgba(0, 0, 0, 0.5)",
-          },
-        }}
+        setIsOpen={setModalSuccess}
+        titleModal="Sucesso!"
+        className="max-w-[94vw]"
       >
-        <header className="flex justify-between -mt-2">
-          <h1 className="font-semibold">Sucesso!</h1>
-          <button onClick={() => setModalSuccess(false)}>
-            <IoMdClose color="#ccc" size={24} />
-          </button>
-        </header>
         <h2 className="font-semibold mt-6">
           Sua conta foi criada com sucesso!
         </h2>
@@ -362,7 +353,7 @@ const Register: React.FC = () => {
         >
           Ir para o login
         </Link>
-      </Modal>
+      </ModalM>
     </div>
   );
 };

@@ -7,6 +7,8 @@ interface IInputProps {
   type: string;
   register?: any;
   disable?: boolean;
+  value?: string;
+  defaultValue?: string;
 }
 
 export const Input = ({
@@ -16,6 +18,8 @@ export const Input = ({
   type,
   register,
   disable,
+  value,
+  defaultValue,
 }: IInputProps) => {
   return (
     <>
@@ -33,6 +37,8 @@ export const Input = ({
             name={labelName}
             type={type}
             {...register}
+            value={value}
+            defaultValue={defaultValue}
           />
         </>
       ) : (
