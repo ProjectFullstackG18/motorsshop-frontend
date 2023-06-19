@@ -61,6 +61,7 @@ const Register: React.FC = () => {
       setCarBrandModels([]);
     }
   };
+
   // NOT WORKING
   const prepareDataForModal = async () => {
     setIsLoading(true);
@@ -80,7 +81,7 @@ const Register: React.FC = () => {
     }
   };
 
-  const carSchema = yup.object().shape({
+  const carUpdateSchema = yup.object().shape({
     brand: yup.string().required("Selecione a marca"),
 
     model: yup.string().required("Selecione o modelo"),
@@ -126,22 +127,23 @@ const Register: React.FC = () => {
     handleSubmit,
     control,
     formState: { errors },
+    reset,
   } = useForm<any>({
     mode: "onSubmit",
-    resolver: yupResolver(carSchema),
-    defaultValues: {
-      images: [" ", " ", " "],
-    },
+    resolver: yupResolver(carUpdateSchema),
   });
+
+  interface Image {
+    url: string;
+  }
 
   const { fields, append, remove } = useFieldArray({
     control,
     name: "images",
   });
 
-  const handleEditCar = async (data: any) => {
+  const handleUpdateCar = async (data: any) => {
     data.is_active = isActive;
-
     try {
       const { data: apiData } = await api.put(`cars/${currentCar.id}`, data);
       console.log(apiData);
@@ -150,9 +152,13 @@ const Register: React.FC = () => {
     }
   };
 
-  if (isLoading) return null;
+  const addFieldsImages = (carToEdit: any) => {
+    reset({ images: [] });
 
-  console.log(selectedModel);
+    carToEdit.images.forEach((image: { id: string; URL: string }) => {
+      append(image.URL);
+    });
+  };
 
   const carToEdit = {
     id: "9369bf27-4934-4fa5-876a-7a0c86f5ea67",
@@ -184,13 +190,16 @@ const Register: React.FC = () => {
     ],
   };
 
+  if (isLoading) return null;
+
   return (
     <div className="bg-grey8 w-screen">
       <button
         className="w-32 bg-brand1 text-whiteFixed font-semibold text-xl"
         onClick={async () => {
           setCurrentCar(carToEdit);
-          setSelectedModel(currentCar.model);
+          addFieldsImages(carToEdit);
+          //NOT WORKING
           await prepareDataForModal();
           setModalEditCar(true);
         }}
@@ -206,7 +215,7 @@ const Register: React.FC = () => {
         className="max-w-[94vw] w-[500px]"
       >
         <form
-          onSubmit={handleSubmit(handleEditCar)}
+          onSubmit={handleSubmit(handleUpdateCar)}
           className="bg-grey11 m-auto my-8 mb-8 -mt-4 pt-4 flex w-full rounded flex-col min-h-1 gap-7"
         >
           <h2 className="text-sm font-medium">Informações do Veiculo</h2>
@@ -392,7 +401,7 @@ const Register: React.FC = () => {
             </button>
           </div>
 
-          {fields.map((field, index) => {
+          {fields.map((field: any, index) => {
             return (
               <div className="flex w-full relative" key={index}>
                 <div className="flex flex-col gap-8 w-full">
