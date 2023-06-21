@@ -39,9 +39,27 @@ const Register: React.FC = () => {
     getCarBrands();
   }, []);
 
-  const setCurrentModelFunction = (e: ChangeEvent<HTMLSelectElement>) => {
+  useEffect(() => {
+    const prepareDataForModal = async () => {
+      try {
+        const { data } = await apiCars.get(`cars?brand=${currentCar.brand}`);
+        setCarBrandModels(data);
+
+        const currentModelObj = data.find((model: any) => {
+          return model.name == currentCar.model;
+        });
+        setCurrentModel(currentModelObj);
+        setSelectedModel(currentCar.model);
+      } catch (error) {
+        console.error("Erro ao buscar os modelos de carro:", error);
+      }
+    };
+    prepareDataForModal();
+  }, [modalEditCar]);
+
+  const setCurrentModelFunction = (name: string) => {
     const currentModelObj = carBrandModels.find((model: any) => {
-      return model.name == e.target.value;
+      return model.name == name;
     });
     setCurrentModel(currentModelObj);
   };
@@ -63,23 +81,6 @@ const Register: React.FC = () => {
   };
 
   // NOT WORKING
-  const prepareDataForModal = async () => {
-    setIsLoading(true);
-    try {
-      const { data } = await apiCars.get(`cars?brand=${currentCar.brand}`);
-      setCarBrandModels(data);
-
-      const currentModelObj = data.find((model: any) => {
-        return model.name == currentCar.model;
-      });
-      setCurrentModel(currentModelObj);
-      setSelectedModel(currentCar.model);
-    } catch (error) {
-      console.error("Erro ao buscar os modelos de carro:", error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
 
   const carUpdateSchema = yup.object().shape({
     brand: yup.string().required("Selecione a marca"),
@@ -199,8 +200,6 @@ const Register: React.FC = () => {
         onClick={async () => {
           setCurrentCar(carToEdit);
           addFieldsImages(carToEdit);
-          //NOT WORKING
-          await prepareDataForModal();
           setModalEditCar(true);
         }}
       >
@@ -247,7 +246,7 @@ const Register: React.FC = () => {
             placeholder="Selecione uma opção"
             defaultValue={selectedModel}
             register={register("model")}
-            onChange={setCurrentModelFunction}
+            onChange={(e) => setCurrentModelFunction(e.target.value)}
           >
             {!isLoading &&
               carBrandModels.map((car: { id: string; name: string }) => (
