@@ -62,12 +62,7 @@ export default function Page({ params }: { params: { id: string } }) {
           </h2>
         </div>
 
-        <p className="text-grey2 font-light text-base ">
-          {user.description} Lorem ipsum dolor sit amet consectetur adipisicing
-          elit. Sed explicabo odio optio ipsam. Maiores provident quisquam,
-          sequi nostrum unde optio minus nulla laboriosam doloremque asperiores
-          distinctio placeat rem dolorum modi.
-        </p>
+        <p className="text-grey2 font-light text-base ">{user.description}</p>
       </section>
 
       <h2 className="w-[96rem] max-w-[100vw] m-auto font-semibold text-2xl mb-12">
