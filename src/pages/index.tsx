@@ -8,10 +8,32 @@ import { Gallery } from "@/components/gallery/gallery";
 import { DashboardCover } from "@/components/cover/coverHomepage";
 import { AsideFilter } from "@/components/asideFilter";
 import ModalEditUser from "@/components/modalEditUser";
+import { useEffect, useState } from "react";
+import { api } from "@/services/api";
+import { ICarRetrieve } from "@/interfaces";
+
 
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
+  const [cars, setCars] = useState<ICarRetrieve[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const getData = async () => {
+      try {
+        const { data: cars }: { data: ICarRetrieve[] } = await api.get("cars/");
+        setCars(cars);
+      } catch (error) {
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    getData();
+  }, []);
+
+  if (isLoading) return null;
+
   return (
     <main>
       <ModalEditUser />
@@ -29,15 +51,10 @@ export default function Home() {
       <div className="flex container m-auto">
         <AsideFilter />
         <Gallery>
-          <CardProduct />
-          <CardProduct />
-          <CardProduct />
-          <CardProduct />
-          <CardProduct />
-          <CardProduct />
-          <CardProduct />
-          <CardProduct />
-          <CardProduct />
+          {cars.map((car) => {
+            console.log(car);
+            return <CardProduct key={car.id} car={car} user={car.user} />;
+          })}
         </Gallery>
       </div>
       <div className="md:hidden flex gap-5 flex-col justify-center items-center">
