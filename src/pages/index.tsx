@@ -7,9 +7,11 @@ import { CardProduct } from "@/components/cards/productCard";
 import { Gallery } from "@/components/gallery/gallery";
 import { DashboardCover } from "@/components/cover/coverHomepage";
 import { AsideFilter } from "@/components/asideFilter";
+import ModalEditUser from "@/components/modalEditUser";
 import { useEffect, useState } from "react";
 import { api } from "@/services/api";
 import { ICarRetrieve } from "@/interfaces";
+
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -34,6 +36,7 @@ export default function Home() {
 
   return (
     <main>
+      <ModalEditUser />
       <Header>
         <Button text="Fazer Login" type="button" />
         <Button
@@ -54,7 +57,7 @@ export default function Home() {
           })}
         </Gallery>
       </div>
-      <div className="md:hidden block flex gap-5 flex-col justify-center items-center">
+      <div className="md:hidden flex gap-5 flex-col justify-center items-center">
         <Button
           text="Filtros"
           type="button"
