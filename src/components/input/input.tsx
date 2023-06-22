@@ -9,6 +9,8 @@ interface IInputProps {
   disable?: boolean;
   value?: string;
   defaultValue?: string;
+  classInput?: string;
+  classLabel?: string;
 }
 
 export const Input = ({
@@ -20,17 +22,34 @@ export const Input = ({
   disable,
   value,
   defaultValue,
+  classLabel,
+  classInput,
 }: IInputProps) => {
   return (
     <>
       {labelName && labelText ? (
         <>
-          <label className="-mb-6 text-sm font-medium" htmlFor={labelName}>
+          <label
+            className={["-mb-6", "text-sm", "font-medium", classLabel].join(
+              " "
+            )}
+            htmlFor={labelName}
+          >
             {labelText}
           </label>
 
           <input
-            className="rounded px-3 h-12 border-2 border-grey8 bg-grey11 text-sm outline-grey3"
+            className={[
+              "rounded",
+              "px-3",
+              "h-12",
+              "border-2",
+              "border-grey8",
+              "bg-grey11",
+              "text-sm",
+              "outline-grey3",
+              classInput,
+            ].join(" ")}
             disabled={disable}
             required
             placeholder={placeholder}
@@ -42,15 +61,20 @@ export const Input = ({
           />
         </>
       ) : (
-        <input
-          className="rounded px-3 h-12 border-2 border-grey8 bg-grey11 text-sm outline-grey3"
-          disabled={disable}
-          required
-          placeholder={placeholder}
-          name={labelName}
-          type={type}
-          {...register}
-        />
+        <>
+          <label className="-mb-6 text-sm font-medium" htmlFor={labelName}>
+            {labelText}
+          </label>
+          <input
+            className="rounded px-3 h-12 border-2 border-grey8 bg-grey11 text-sm outline-grey3"
+            disabled={disable}
+            required
+            placeholder={placeholder}
+            name={labelName}
+            type={type}
+            {...register}
+          />
+        </>
       )}
     </>
   );
