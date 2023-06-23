@@ -7,11 +7,10 @@ import { CardProduct } from "@/components/cards/productCard";
 import { Gallery } from "@/components/gallery/gallery";
 import { DashboardCover } from "@/components/cover/coverHomepage";
 import { AsideFilter } from "@/components/asideFilter";
-import ModalEditUser from "@/components/modalEditUser";
+import ModalUser from "@/components/modalUser";
 import { useEffect, useState } from "react";
 import { api } from "@/services/api";
 import { ICarRetrieve } from "@/interfaces";
-
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -36,7 +35,7 @@ export default function Home() {
 
   return (
     <main>
-      <ModalEditUser />
+      <ModalUser />
       <Header>
         <Button text="Fazer Login" type="button" />
         <Button

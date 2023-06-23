@@ -1,66 +1,28 @@
 /* eslint-disable @next/next/no-img-element */
 import { Button } from "@/components/button/button";
-import { Footer } from "@/components/footer/footer";
-import { Header } from "@/components/header/header";
 import { Input } from "@/components/input/input";
 import { Textarea } from "@/components/textarea";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
 import { api } from "@/services/api";
 import { ModalM } from "@/components/modal/modal";
 import { useRouter } from "next/router";
 
-const ModalEditUser: React.FC = () => {
+const ModalUser: React.FC = () => {
   const [modalEditSuccess, setModalEditSuccess] = useState(true);
   const [modalDeleteSuccess, setModalDeleteSuccess] = useState(false);
+  const [userData, setUserData] = useState();
   const route = useRouter();
-
-  const registerSchena = yup.object().shape({
-    name: yup
-      .string()
-      .required("Informe seu nome")
-      .min(8, "Insira pelo menos um nome e um sobrenome")
-      .max(
-        60,
-        "O nome é limitado a 60 caracteres, por favor abrevie ou remova algum sobrenome."
-      ),
-    email: yup
-      .string()
-      .required("Informe seu email")
-      .email("Email invalido")
-      .max(30, "Limite de 30 caracteres para email"),
-    cpf: yup
-      .string()
-      .required("Informe seu CPF")
-      .length(11, "CPF deve conter exatamente 11 digitos"),
-    phone: yup
-      .string()
-      .required("Informe seu celular")
-      .length(11, "Celular deve conter exatamente 11 digitos"),
-    birthdate: yup
-      .string()
-      .required("Informe sua data de nascimento")
-      .length(
-        10,
-        "Sua data de nascimento deve conter exatamente 6 digitos no formado DDMMAA"
-      ),
-    complement: yup.string(),
-  });
 
   const {
     register,
     handleSubmit,
-    formState: { errors, isDirty, isValid },
-  } = useForm<any>({
-    mode: "onBlur",
-    resolver: yupResolver(registerSchena),
-  });
+    formState: { errors },
+  } = useForm<any>({});
 
   const handleEditUser = async (data: any) => {
     try {
-      const { data: apiData } = await api.post("users", data);
+      const { data: apiData } = await api.post(`users/`, data);
       setModalEditSuccess(false);
     } catch (e: any) {
       console.log(e.response);
@@ -72,7 +34,7 @@ const ModalEditUser: React.FC = () => {
   };
   const handleDeleteUser = async () => {
     try {
-      const { data: apiData } = await api.delete("users");
+      const { data: apiData } = await api.delete("users/");
       setModalDeleteSuccess(false);
       route.push("/login");
     } catch (e: any) {
@@ -166,7 +128,7 @@ const ModalEditUser: React.FC = () => {
               {String(errors.description.message)}
             </span>
           )}
-          <div className="flex space-x-2 flex-wrap justify-center  sm:flex-wrap md:flex-nowrap lg:flex-wrap xl:flex-nowrap">
+          <div className="flex space-x-2 flex-wrap justify-center  sm:flex-wrap md:flex-nowrap lg:flex-nowrap xl:flex-nowrap">
             <div className="flex gap-2">
               <Button
                 type="button"
@@ -185,7 +147,6 @@ const ModalEditUser: React.FC = () => {
               type="submit"
               text="Salvar alterações"
               className="p-2 text-center w-36 mt-3  sm:mt-0 md:mt-0 lg:mt-0 xl:mt-0 font-semibold text-sm rounded bg-brand1 text-grey10"
-              disable={!isDirty || !isValid}
             />
           </div>
         </form>
@@ -223,4 +184,4 @@ const ModalEditUser: React.FC = () => {
   );
 };
 
-export default ModalEditUser;
+export default ModalUser;
