@@ -78,3 +78,8 @@ export interface ICarRetrieve {
   images: IImage[];
   user: IUser;
 }
+
+export interface IUserLogin {
+  email: string;
+  password: string;
+}

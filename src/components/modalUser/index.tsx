@@ -9,7 +9,7 @@ import { ModalM } from "@/components/modal/modal";
 import { useRouter } from "next/router";
 
 const ModalUser: React.FC = () => {
-  const [modalEditSuccess, setModalEditSuccess] = useState(true);
+  const [modalEditSuccess, setModalEditSuccess] = useState(false);
   const [modalDeleteSuccess, setModalDeleteSuccess] = useState(false);
   const [userData, setUserData] = useState();
   const route = useRouter();
