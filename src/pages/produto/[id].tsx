@@ -39,7 +39,7 @@ const ProductView: React.FC = () => {
   if (isLoading) return null;
 
   return (
-    <div className="bg-grey8 w-screen">
+    <div className="bg-grey8">
       <Header>
         <Button text="Fazer Login" type="button" />
         <Button
