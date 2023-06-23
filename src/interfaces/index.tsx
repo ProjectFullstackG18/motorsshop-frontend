@@ -79,6 +79,15 @@ export interface ICarRetrieve {
   user: IUser;
 }
 
+export interface IFipeCar {
+  id: string;
+  name: string;
+  brand: string;
+  year: string;
+  fuel: number;
+  value: number;
+}
+
 export interface IUserLogin {
   email: string;
   password: string;

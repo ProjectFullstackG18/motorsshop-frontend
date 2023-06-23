@@ -1,21 +1,27 @@
 /* eslint-disable @next/next/no-img-element */
-import { Button } from "@/components/button/button";
-import { Input } from "@/components/input/input";
-import { Textarea } from "@/components/textarea";
-import { ChangeEvent, useEffect, useState } from "react";
-import { useFieldArray, useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
-import { api, apiCars } from "@/services/api";
-import { ModalM } from "@/components/modal/modal";
-import { Select } from "@/components/select";
-import { IoMdClose } from "react-icons/io";
 
-const Register: React.FC = () => {
+import { apiCars, api } from "@/services/api";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useState, useEffect, ChangeEvent } from "react";
+import { useForm, useFieldArray } from "react-hook-form";
+import { IoMdClose } from "react-icons/io";
+import { Button } from "../button/button";
+import { Select } from "../select";
+import { Textarea } from "../textarea";
+import { ModalM } from "./modal";
+import * as yup from "yup";
+import { Input } from "../input/input";
+
+interface IModalNewCarProps {
+  modalNewCar: boolean;
+  setModalNewCar: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+export const ModalNewCar: React.FC<IModalNewCarProps> = ({
+  modalNewCar,
+  setModalNewCar,
+}: IModalNewCarProps) => {
   const [isActive, setIsActive] = useState(true);
-  const [modalEditCar, setModalEditCar] = useState(false);
-  const [currentCar, setCurrentCar] = useState({} as any);
-  const [selectedModel, setSelectedModel] = useState(" ");
 
   const [carBrands, setCarBrands] = useState<string[]>([]);
   const [carBrandModels, setCarBrandModels] = useState([]);
@@ -39,38 +45,25 @@ const Register: React.FC = () => {
     getCarBrands();
   }, []);
 
-  useEffect(() => {
-    const prepareDataForModal = async () => {
-      try {
-        const { data } = await apiCars.get(`cars?brand=${currentCar.brand}`);
-        setCarBrandModels(data);
-
-        const currentModelObj = data.find((model: any) => {
-          return model.name == currentCar.model;
-        });
-        setCurrentModel(currentModelObj);
-        setSelectedModel(currentCar.model);
-      } catch (error) {
-        console.error("Erro ao buscar os modelos de carro:", error);
-      }
-    };
-    prepareDataForModal();
-  }, [modalEditCar]);
-
-  const setCurrentModelFunction = (name: string) => {
-    const currentModelObj = carBrandModels.find((model: any) => {
-      return model.name == name;
+  const setCurrentModelFunction = (e: ChangeEvent<HTMLSelectElement>) => {
+    const currentModelObj: any = carBrandModels.find((model: any) => {
+      return model.name == e.target.value;
     });
-    setCurrentModel(currentModelObj);
+    if (currentModelObj) {
+      setCurrentModel(currentModelObj);
+      setValue("year", currentModelObj.year);
+      setValue("fuel_type", fuelOptions[currentModelObj.fuel - 1]);
+      setValue("fipe_price", currentModelObj.value);
+    }
   };
 
-  const getCarBrandModels = async (brand: string) => {
+  const getCarBrandModels = async (e: ChangeEvent<HTMLSelectElement>) => {
+    const brand = e.target.value;
     setCurrentModel({});
     if (brand) {
       setCurrentModel({});
       try {
         const { data } = await apiCars.get(`cars?brand=${brand}`);
-        console.log(data);
         setCarBrandModels(data);
       } catch (error) {
         console.error("Erro ao buscar os modelos de carro:", error);
@@ -80,9 +73,7 @@ const Register: React.FC = () => {
     }
   };
 
-  // NOT WORKING
-
-  const carUpdateSchema = yup.object().shape({
+  const registerSchena = yup.object().shape({
     brand: yup.string().required("Selecione a marca"),
 
     model: yup.string().required("Selecione o modelo"),
@@ -116,11 +107,15 @@ const Register: React.FC = () => {
       .required(
         "Adicione alguma descrição que os compradores possam achar interessante. Ex: Unico dono"
       ),
-    images: yup
-      .array()
-      .of(
-        yup.string().url("Insira uma url valida").required("Campo obrigatório")
-      ),
+    images: yup.array().of(
+      yup
+        .string()
+        .matches(
+          /^((http|https):\/\/)?(www.)?(?!.*(http|https|www.))[a-zA-Z0-9_-]+(\.[a-zA-Z]+)+(\/)?.([\w\?[a-zA-Z-_%\/@?]+)*([^\/\w\?[a-zA-Z0-9_-]+=\w+(&[a-zA-Z0-9_]+=\w+)*)?$/,
+          "Insira uma url valida"
+        )
+        .required("Campo obrigatório")
+    ),
   });
 
   const {
@@ -128,93 +123,51 @@ const Register: React.FC = () => {
     handleSubmit,
     control,
     formState: { errors },
-    reset,
+    setValue,
   } = useForm<any>({
     mode: "onSubmit",
-    resolver: yupResolver(carUpdateSchema),
+    resolver: yupResolver(registerSchena),
+    defaultValues: {
+      images: [" ", " ", " "],
+    },
   });
-
-  interface Image {
-    url: string;
-  }
 
   const { fields, append, remove } = useFieldArray({
     control,
     name: "images",
   });
 
-  const handleUpdateCar = async (data: any) => {
+  const handleNewCar = async (data: any) => {
     data.is_active = isActive;
+
     try {
-      const { data: apiData } = await api.put(`cars/${currentCar.id}`, data);
+      const { data: apiData } = await api.post("cars", data);
+      setModalNewCar(false);
       console.log(apiData);
     } catch (e: any) {
       console.log(e);
     }
   };
 
-  const addFieldsImages = (carToEdit: any) => {
-    reset({ images: [] });
-
-    carToEdit.images.forEach((image: { id: string; URL: string }) => {
-      append(image.URL);
-    });
-  };
-
-  const carToEdit = {
-    id: "9369bf27-4934-4fa5-876a-7a0c86f5ea67",
-    brand: "ford",
-    model: "ecosport se 1.5 12v flex 5p aut.",
-    year: "2022",
-    fuel_type: "Flex",
-    km: "54400",
-    color: "Preto",
-    fipe_price: "R$ 88.136,00",
-    price: "80000",
-    description: "jioasfjijiasjiasfafsi",
-    created_at: "2023-06-18T14:32:26.884Z",
-    updated_at: "2023-06-18T14:32:26.884Z",
-    is_active: true,
-    images: [
-      {
-        id: "1d9cacf7-f613-47e6-946a-6f50caa1c0cf",
-        URL: "https://image.com/update",
-      },
-      {
-        id: "8c7db7f7-d06d-4ca9-b63d-2e38955a053d",
-        URL: "https://image.com/update1",
-      },
-      {
-        id: "6d739ed2-d9c4-41cb-892c-9e3a6e5a9bed",
-        URL: "https://image.com/update2",
-      },
-    ],
-  };
-
   if (isLoading) return null;
 
   return (
-    <div className="bg-grey8 w-screen">
-      <button
-        className="w-32 bg-brand1 text-whiteFixed font-semibold text-xl"
-        onClick={async () => {
-          setCurrentCar(carToEdit);
-          addFieldsImages(carToEdit);
-          setModalEditCar(true);
-        }}
-      >
-        {" "}
-        ABRIR MODAL EDITAR CARRO
-      </button>
+    <>
+      <Button
+        text="Criar Anuncio"
+        type="button"
+        className="p-3 px-6 border-brand1 border-2 rounded w-fit text-brand1 font-medium"
+        callback={() => setModalNewCar(true)}
+      />
 
       <ModalM
-        isOpen={modalEditCar}
-        setIsOpen={setModalEditCar}
-        titleModal="Editar anuncio"
+        isOpen={modalNewCar}
+        setIsOpen={setModalNewCar}
+        titleModal="Criar anuncio"
         className="max-w-[94vw] w-[500px]"
       >
         <form
-          onSubmit={handleSubmit(handleUpdateCar)}
+          onSubmit={handleSubmit(handleNewCar)}
           className="bg-grey11 m-auto my-8 mb-8 -mt-4 pt-4 flex w-full rounded flex-col min-h-1 gap-7"
         >
           <h2 className="text-sm font-medium">Informações do Veiculo</h2>
@@ -223,8 +176,7 @@ const Register: React.FC = () => {
             labelName="marca"
             labelText="Marca"
             placeholder="Selecione uma opção"
-            defaultValue={currentCar.brand}
-            onChange={(e) => getCarBrandModels(e.target.value)}
+            onChange={getCarBrandModels}
             register={register("brand")}
           >
             {carBrands.map((brand) => (
@@ -244,16 +196,14 @@ const Register: React.FC = () => {
             labelName="modelo"
             labelText="Modelo"
             placeholder="Selecione uma opção"
-            defaultValue={selectedModel}
             register={register("model")}
-            onChange={(e) => setCurrentModelFunction(e.target.value)}
+            onChange={setCurrentModelFunction}
           >
-            {!isLoading &&
-              carBrandModels.map((car: { id: string; name: string }) => (
-                <option key={car.id} value={car.name}>
-                  {car.name}
-                </option>
-              ))}
+            {carBrandModels.map((car: { id: string; name: string }) => (
+              <option key={car.id} value={car.name}>
+                {car.name}
+              </option>
+            ))}
           </Select>
           {errors?.model && (
             <span className="text-brand1 text-xs -mt-6">
@@ -268,7 +218,7 @@ const Register: React.FC = () => {
                 labelText="Ano"
                 type="number"
                 register={register("year")}
-                value={currentModel?.year}
+                // value={currentModel?.year}
               />
               {errors?.year && (
                 <span className="text-brand1 text-xs -mt-6">
@@ -283,7 +233,7 @@ const Register: React.FC = () => {
                 labelText="Combustivel"
                 type="text"
                 register={register("fuel_type")}
-                value={currentModel?.fuel && fuelOptions[currentModel.fuel - 1]}
+                // value={currentModel.fuel && fuelOptions[currentModel.fuel - 1]}
               />
               {errors?.fuel_type && (
                 <span className="text-brand1 text-xs -mt-6">
@@ -300,7 +250,6 @@ const Register: React.FC = () => {
                 placeholder="20.000"
                 labelText="Quilometragem"
                 type="number"
-                defaultValue={currentCar.km}
                 register={register("km")}
               />
               {errors?.km && (
@@ -315,7 +264,6 @@ const Register: React.FC = () => {
                 placeholder="Cor"
                 labelText="Cor"
                 type="text"
-                defaultValue={currentCar.color}
                 register={register("color")}
               />
               {errors?.color && (
@@ -334,7 +282,7 @@ const Register: React.FC = () => {
                 labelText="Preço tabela FIPE"
                 type="text"
                 register={register("fipe_price")}
-                value={currentModel?.value}
+                // value={currentModel.value}
               />
               {errors?.fipe_price && (
                 <span className="text-brand1 text-xs -mt-6">
@@ -349,7 +297,6 @@ const Register: React.FC = () => {
                 labelText="Preço"
                 type="number"
                 register={register("price")}
-                defaultValue={currentCar.price}
               />
               {errors?.price && (
                 <span className="text-brand1 text-xs -mt-6">
@@ -364,7 +311,6 @@ const Register: React.FC = () => {
             labelText="Descrição"
             placeholder="Digitar descrição"
             register={register("description")}
-            defaultValue={currentCar.description}
           />
           {errors?.description && (
             <span className="text-brand1 text-xs -mt-6">
@@ -400,7 +346,7 @@ const Register: React.FC = () => {
             </button>
           </div>
 
-          {fields.map((field: any, index) => {
+          {fields.map((field, index) => {
             return (
               <div className="flex w-full relative" key={index}>
                 <div className="flex flex-col gap-8 w-full">
@@ -451,8 +397,6 @@ const Register: React.FC = () => {
           />
         </form>
       </ModalM>
-    </div>
+    </>
   );
 };
-
-export default Register;
