@@ -6,14 +6,17 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { api } from "@/services/api";
+import { IUserLogin } from "@/interfaces";
+import { useRouter } from "next/router";
 
 const Login: React.FC = () => {
+  const route = useRouter();
   const loginSchena = yup.object().shape({
     email: yup.string().required("Informe seu email").email("Email invalido"),
     password: yup
       .string()
       .required("Informe sua senha")
-      .min(8, "Insira pelo menos 8 caracteres"),
+      .min(6, "Insira pelo menos 6 caracteres"),
   });
 
   const {
@@ -24,9 +27,12 @@ const Login: React.FC = () => {
     resolver: yupResolver(loginSchena),
   });
 
-  const handleLogin = async (data: any) => {
+  const handleLogin = async (dataLogin: IUserLogin) => {
     try {
-      const { data: apiData } = await api.post("login", data);
+      const { data } = await api.post("login", dataLogin);
+      localStorage.setItem("motorshop@token", data.token);
+      route.push("/");
+      console.log(data.token);
     } catch (e: any) {
       console.log(e.response);
     }

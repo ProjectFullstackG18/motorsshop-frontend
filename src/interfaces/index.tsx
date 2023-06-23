@@ -87,3 +87,8 @@ export interface IFipeCar {
   fuel: number;
   value: number;
 }
+
+export interface IUserLogin {
+  email: string;
+  password: string;
+}
