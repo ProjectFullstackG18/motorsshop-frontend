@@ -40,14 +40,7 @@ export default function Page({ params }: { params: { id: string } }) {
 
   return (
     <main className="bg-grey9">
-      <Header>
-        <Button text="Fazer Login" type="button" />
-        <Button
-          text="Cadastrar"
-          type="button"
-          className="border-2 border-grey6 rounded w-36 h-10 font-semibold"
-        />
-      </Header>
+      <Header />
       <section className="bg-brand2 h-72"></section>
       <section className="bg-whiteFixed w-[76rem] max-w-[calc(100vw-2rem)] m-auto -mt-56 mb-12 gap-6 rounded p-11 flex flex-col">
         <span className="bg-brand1 text-whiteFixed font-medium rounded-full w-20 h-20 text-center align-middle pt-5 text-4xl ">
