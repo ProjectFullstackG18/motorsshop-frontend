@@ -40,14 +40,7 @@ const Login: React.FC = () => {
 
   return (
     <div className="bg-grey8 w-screen">
-      <Header>
-        <Button text="Fazer Login" type="button" />
-        <Button
-          text="Cadastrar"
-          type="button"
-          className="border-2 border-grey6 rounded w-36 h-10 font-semibold"
-        />
-      </Header>
+      <Header />
       <form
         onSubmit={handleSubmit(handleLogin)}
         className="bg-grey10 m-auto max-w-[92vw] my-32 mb-32 w-96 flex rounded flex-col min-h-1 p-4 gap-7"
