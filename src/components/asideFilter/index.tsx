@@ -1,6 +1,22 @@
-import React from "react";
+import { api } from "@/services/api";
+import React, { useEffect, useState } from "react";
 
 export const AsideFilter: React.FC = () => {
+  const [info, setInfo] = useState([]);
+
+  useEffect(() => {
+    const getFilter = async () => {
+      try {
+        const response = await api.get("filters");
+        const { brands, models, colors, fuel_types } = response.data;
+        setInfo(brands);
+      } catch (e: any) {
+        console.log(e);
+      }
+    };
+    getFilter();
+  }, []);
+
   return (
     <>
       <aside className="flex flex-col max-md:hidden max-w-xs select-text ml-4">
@@ -12,31 +28,16 @@ export const AsideFilter: React.FC = () => {
                 General Motors
               </span>
             </li>
-            <li>
-              <span className="cursor-pointer font-lexend font-medium text-lg text-grey3">
-                Fiat
-              </span>
-            </li>
-            <li>
-              <span className="cursor-pointer font-lexend font-medium text-lg text-grey3">
-                Ford
-              </span>
-            </li>
-            <li>
-              <span className="cursor-pointer font-lexend font-medium text-lg text-grey3">
-                Honda
-              </span>
-            </li>
-            <li>
-              <span className="cursor-pointer font-lexend font-medium text-lg text-grey3">
-                Porsche
-              </span>
-            </li>
-            <li>
-              <span className="cursor-pointer font-lexend font-medium text-lg text-grey3">
-                Volswagen
-              </span>
-            </li>
+
+            {info.map((inf) => {
+              return (
+                <li key={+1}>
+                  <button className="cursor-pointer font-lexend font-medium text-lg text-grey3">
+                    {inf}
+                  </button>
+                </li>
+              );
+            })}
           </ul>
         </div>
         <div className="flex flex-col">

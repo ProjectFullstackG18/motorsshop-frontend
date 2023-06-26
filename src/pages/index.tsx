@@ -44,7 +44,6 @@ export default function Home() {
         <AsideFilter />
         <Gallery>
           {cars.map((car) => {
-            console.log(car);
             return <CardProduct key={car.id} car={car} user={car.user} />;
           })}
         </Gallery>
