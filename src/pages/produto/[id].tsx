@@ -39,15 +39,8 @@ const ProductView: React.FC = () => {
   if (isLoading) return null;
 
   return (
-    <div className="bg-grey8 w-screen">
-      <Header>
-        <Button text="Fazer Login" type="button" />
-        <Button
-          text="Cadastrar"
-          type="button"
-          className="border-2 border-grey6 rounded w-36 h-10 font-semibold"
-        />
-      </Header>
+    <div className="bg-grey8">
+      <Header />
       <div className="w-full h-[33rem] bg-brand2 absolute"></div>
       <main className="flex flex-wrap  w-[80rem]  max-w-[100vw] m-auto justify-between">
         <Subcontainer classname="w-screen z-10 lg:max-w-[68%] ">

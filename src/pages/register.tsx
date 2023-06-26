@@ -15,7 +15,6 @@ import { ModalM } from "@/components/modal/modal";
 const Register: React.FC = () => {
   const [isSaller, setIsSaller] = useState(false);
   const [modalSuccess, setModalSuccess] = useState(false);
-  const [modalNewCar, setModalNewCar] = useState(true);
 
   const registerSchena = yup.object().shape({
     name: yup
