@@ -6,6 +6,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { api } from "@/services/api";
+import Link from "next/link";
 import { IUserLogin } from "@/interfaces";
 import { useRouter } from "next/router";
 
@@ -74,9 +75,12 @@ const Login: React.FC = () => {
           </span>
         )}
         <div className="text-end">
-          <span className=" text-base font-medium text-end text-grey2 cursor-pointer">
+          <Link
+            href={"/resetPassword"}
+            className=" text-base font-medium text-end text-grey2 cursor-pointer"
+          >
             Esqueci minha senha
-          </span>
+          </Link>
         </div>
 
         <Button
