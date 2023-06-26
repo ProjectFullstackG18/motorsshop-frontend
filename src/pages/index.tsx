@@ -12,7 +12,6 @@ import { useEffect, useState } from "react";
 import { api } from "@/services/api";
 import { ICarRetrieve } from "@/interfaces";
 
-
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
@@ -36,7 +35,7 @@ export default function Home() {
 
   return (
     <main>
-      <ModalEditUser />
+      {/* <ModalEditUser /> */}
       <Header>
         <Button text="Fazer Login" type="button" />
         <Button
@@ -52,7 +51,6 @@ export default function Home() {
         <AsideFilter />
         <Gallery>
           {cars.map((car) => {
-            console.log(car);
             return <CardProduct key={car.id} car={car} user={car.user} />;
           })}
         </Gallery>
