@@ -2,10 +2,19 @@ import { ICarRetrieve } from "@/interfaces";
 import { api } from "@/services/api";
 import React, { useEffect, useState } from "react";
 
-export const AsideFilter: React.FC = ({ setCars }: ICarRetrieve[]) => {
-  const [info, setInfo] = useState([] as any);
+interface iInfoProps {
+  brands: [];
+  models: [];
+  colors: [];
+  years: [];
+  fuel_types: [];
+}
+
+export const AsideFilter: React.FC = ({ setCars }: ICarRetrieve[] | any) => {
+  const [info, setInfo] = useState<iInfoProps>({} as any);
   const [isLoading, setIsLoading] = useState(true);
   const [valueClick, setValueClick] = useState({} as any);
+  const [search, setSearch] = useState("");
 
   useEffect(() => {
     const getFilter = async () => {
@@ -42,9 +51,12 @@ export const AsideFilter: React.FC = ({ setCars }: ICarRetrieve[]) => {
           <div className="font-lexend font-semibold text-2xl my-8">Marca</div>
           <ul>
             <li>
-              <span className="cursor-pointer font-lexend font-medium text-lg text-grey3">
+              <button
+                onClick={() => setValueClick("")}
+                className="cursor-pointer font-lexend font-medium text-lg text-grey3"
+              >
                 General Motors
-              </span>
+              </button>
             </li>
             {info.brands.map((inf: any) => {
               return (
@@ -97,41 +109,18 @@ export const AsideFilter: React.FC = ({ setCars }: ICarRetrieve[]) => {
         <div className="flex flex-col">
           <div className="font-lexend font-semibold text-2xl my-8">Ano</div>
           <ul>
-            <li>
-              <span className="cursor-pointer font-lexend font-medium text-lg text-grey3">
-                2022
-              </span>
-            </li>
-            <li>
-              <span className="cursor-pointer font-lexend font-medium text-lg text-grey3">
-                2021
-              </span>
-            </li>
-            <li>
-              <span className="cursor-pointer font-lexend font-medium text-lg text-grey3">
-                2018
-              </span>
-            </li>
-            <li>
-              <span className="cursor-pointer font-lexend font-medium text-lg text-grey3">
-                2015
-              </span>
-            </li>
-            <li>
-              <span className="cursor-pointer font-lexend font-medium text-lg text-grey3">
-                2013
-              </span>
-            </li>
-            <li>
-              <span className="cursor-pointer font-lexend font-medium text-lg text-grey3">
-                2012
-              </span>
-            </li>
-            <li>
-              <span className="cursor-pointer font-lexend font-medium text-lg text-grey3">
-                2010
-              </span>
-            </li>
+            {info.years.map((inf: any) => {
+              return (
+                <li key={inf}>
+                  <button
+                    onClick={() => setValueClick(`years=${inf}`)}
+                    className="cursor-pointer font-lexend font-medium text-lg text-grey3"
+                  >
+                    {inf}
+                  </button>
+                </li>
+              );
+            })}
           </ul>
         </div>
         <div className="flex flex-col">
@@ -160,11 +149,13 @@ export const AsideFilter: React.FC = ({ setCars }: ICarRetrieve[]) => {
               className=" text-center w-24 h-10 bg-grey5"
               type="number"
               placeholder="Mínima"
+              onBlur={(e) => setValueClick(`min_km=${e.target.value}`)}
             />
             <input
               className=" text-center w-24 h-10 bg-grey5"
               type="number"
               placeholder="Máxima"
+              onBlur={(e) => setValueClick(`max_km=${e.target.value}`)}
             />
           </div>
         </div>
@@ -175,11 +166,13 @@ export const AsideFilter: React.FC = ({ setCars }: ICarRetrieve[]) => {
               className=" text-center w-24 h-10 bg-grey5"
               type="number"
               placeholder="Mínima"
+              onBlur={(e) => setValueClick(`min_price=${e.target.value}`)}
             />
             <input
               className=" text-center w-24 h-10 bg-grey5"
               type="number"
               placeholder="Máxima"
+              onBlur={(e) => setValueClick(`max_price=${e.target.value}`)}
             />
           </div>
         </div>
