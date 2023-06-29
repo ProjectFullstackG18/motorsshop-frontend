@@ -41,7 +41,7 @@ export default function Home() {
       {/* <Gallery></Gallery> */}
 
       <div className="flex container m-auto">
-        <AsideFilter />
+        <AsideFilter setCars={setCars} />
         <Gallery>
           {cars.map((car) => {
             return <CardProduct key={car.id} car={car} user={car.user} />;
