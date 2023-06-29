@@ -14,7 +14,6 @@ export const AsideFilter: React.FC = ({ setCars }: ICarRetrieve[] | any) => {
   const [info, setInfo] = useState<iInfoProps>({} as any);
   const [isLoading, setIsLoading] = useState(true);
   const [valueClick, setValueClick] = useState({} as any);
-  const [search, setSearch] = useState("");
 
   useEffect(() => {
     const getFilter = async () => {
@@ -58,7 +57,7 @@ export const AsideFilter: React.FC = ({ setCars }: ICarRetrieve[] | any) => {
                 General Motors
               </button>
             </li>
-            {info.brands.map((inf: any) => {
+            {info.brands.map((inf: string) => {
               return (
                 <li key={inf}>
                   <button
@@ -75,7 +74,7 @@ export const AsideFilter: React.FC = ({ setCars }: ICarRetrieve[] | any) => {
         <div className="flex flex-col">
           <div className="font-lexend font-semibold text-2xl my-8">Modelo</div>
           <ul className="select-text inline">
-            {info.models.map((inf: any) => {
+            {info.models.map((inf: string) => {
               return (
                 <li key={inf}>
                   <button
@@ -92,7 +91,7 @@ export const AsideFilter: React.FC = ({ setCars }: ICarRetrieve[] | any) => {
         <div className="flex flex-col">
           <div className="font-lexend font-semibold text-2xl my-8">Cor</div>
           <ul>
-            {info.colors.map((inf: any) => {
+            {info.colors.map((inf: string) => {
               return (
                 <li key={inf}>
                   <button
@@ -109,7 +108,7 @@ export const AsideFilter: React.FC = ({ setCars }: ICarRetrieve[] | any) => {
         <div className="flex flex-col">
           <div className="font-lexend font-semibold text-2xl my-8">Ano</div>
           <ul>
-            {info.years.map((inf: any) => {
+            {info.years.map((inf: string) => {
               return (
                 <li key={inf}>
                   <button
@@ -128,7 +127,7 @@ export const AsideFilter: React.FC = ({ setCars }: ICarRetrieve[] | any) => {
             Combustivel
           </div>
           <ul>
-            {info.fuel_types.map((inf: any) => {
+            {info.fuel_types.map((inf: string) => {
               return (
                 <li key={inf}>
                   <button
