@@ -1,5 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import { Button } from "@/components/button/button";
+import { CommentCard } from "@/components/comment";
 import { Footer } from "@/components/footer/footer";
 import { Header } from "@/components/header/header";
 import { Subcontainer } from "@/components/subcontainer/subcontainer";
@@ -24,7 +25,6 @@ const ProductView: React.FC = () => {
           const { data: carAPI }: { data: ICarRetrieve } = await api.get(
             `cars/${id}`
           );
-          console.log(carAPI);
           setCar(carAPI);
         } catch (e) {
           console.log(e);
@@ -34,7 +34,7 @@ const ProductView: React.FC = () => {
       }
     };
     getData();
-  }, []);
+  }, [id]);
 
   if (isLoading) return null;
 
@@ -114,9 +114,14 @@ const ProductView: React.FC = () => {
           </div>
         </Subcontainer>
 
-        {/*<Subcontainer classname="w-4/12">
-         comentarios aqui
-        </Subcontainer> */}
+        <Subcontainer classname="w-screen z-10 lg:max-w-[68%]">
+          <div className="flex justify-center w-full flex-col gap-8 bg-whiteFixed p-6 rounded">
+            <h2 className="text-xl font-semibold">Comentários</h2>
+            {car.comments.map((comment, id) => (
+              <CommentCard key={id} comment={comment} userComent={car.user} />
+            ))}
+          </div>
+        </Subcontainer>
       </main>
       <Footer></Footer>
     </div>
