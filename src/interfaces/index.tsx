@@ -61,6 +61,13 @@ export interface IUserAPI {
   cars: ICar[];
 }
 
+export interface ICarComments{
+  id: string;
+  comment: string;
+  created_at: string;
+  user: IUser
+}
+
 export interface ICarRetrieve {
   id: string;
   brand: string;
@@ -77,6 +84,7 @@ export interface ICarRetrieve {
   is_active: boolean;
   images: IImage[];
   user: IUser;
+  comments: ICarComments[]
 }
 
 export interface IFipeCar {

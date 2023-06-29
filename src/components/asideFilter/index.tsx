@@ -16,7 +16,6 @@ export const AsideFilter: React.FC = () => {
     };
     getFilter();
   }, []);
-
   return (
     <>
       <aside className="flex flex-col max-md:hidden max-w-xs select-text ml-4">
@@ -30,6 +29,7 @@ export const AsideFilter: React.FC = () => {
             </li>
 
             {info.map((inf) => {
+              console.log(inf)
               return (
                 <li key={+1}>
                   <button className="cursor-pointer font-lexend font-medium text-lg text-grey3">

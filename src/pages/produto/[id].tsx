@@ -3,16 +3,18 @@ import { Button } from "@/components/button/button";
 import { Footer } from "@/components/footer/footer";
 import { Header } from "@/components/header/header";
 import { Subcontainer } from "@/components/subcontainer/subcontainer";
-import { ICarRetrieve } from "@/interfaces";
+import { ICarComments, ICarRetrieve } from "@/interfaces";
 import { api } from "@/services/api";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import moment from "moment";
 
 const ProductView: React.FC = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   const [car, setCar] = useState<ICarRetrieve>({} as ICarRetrieve);
+  const [ comments, setComments] = useState<ICarComments[]>([])
 
   const router = useRouter();
   const { id } = router.query;
@@ -24,7 +26,8 @@ const ProductView: React.FC = () => {
           const { data: carAPI }: { data: ICarRetrieve } = await api.get(
             `cars/${id}`
           );
-          console.log(carAPI);
+          // console.log(carAPI.comments[0].created_at);
+          setComments(carAPI.comments)
           setCar(carAPI);
         } catch (e) {
           console.log(e);
@@ -35,9 +38,9 @@ const ProductView: React.FC = () => {
     };
     getData();
   }, []);
-
   if (isLoading) return null;
-
+  console.log(comments)
+  
   return (
     <div className="bg-grey8">
       <Header />
@@ -114,9 +117,9 @@ const ProductView: React.FC = () => {
           </div>
         </Subcontainer>
 
-        {/*<Subcontainer classname="w-4/12">
-         comentarios aqui
-        </Subcontainer> */}
+        {<Subcontainer classname="w-4/12">
+
+        </Subcontainer> }
       </main>
       <Footer></Footer>
     </div>
