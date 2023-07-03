@@ -32,13 +32,21 @@ Conta logada (vendedor) pode fazer:
 - visualizar automoveis disponíveis no website
 - filtrar os automoveis disponíveis no website
 - criar, editar e deletar veiculos cadastrados pelo usuário
-- Realizar comentário na página do veículo
+- criar, editar e deletar comentários do usuário feito na página do veículo
 
 ## Rodar o projeto localmente
 
 - primeiro inicie seu terminal (git bash ou powershell)
 
-- digite esse comando abaixo e aguarde
+- instale as dependências com o comando abaixo:
+
+```bash
+
+npm install
+
+```
+
+- agora digite esse comando pra rodar o server:
 
 ```bash
 
@@ -59,7 +67,7 @@ projeto (https://github.com/ProjectFullstackG18/motorsshop-backend) e que tenha 
 - [Emanuel Luiz](https://github.com/emanuelluiz01)
 - [Eduardo Portela](https://github.com/Eduardo-Portela)
 
-- Tech Leader [Paulo Mello](https://github.com/paulomellokenzie)
+- Product owner [Paulo Mello](https://github.com/paulomellokenzie)
 
 <!-- This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
