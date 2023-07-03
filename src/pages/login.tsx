@@ -33,7 +33,6 @@ const Login: React.FC = () => {
       const { data } = await api.post("login", dataLogin);
       localStorage.setItem("motorshop@token", data.token);
       route.push("/");
-      console.log(data.token);
     } catch (e: any) {
       console.log(e.response);
     }

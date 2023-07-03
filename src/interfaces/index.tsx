@@ -2,6 +2,12 @@ export interface IImage {
   id: string;
   URL: string;
 }
+export interface IComment {
+  id: string;
+  comment: string;
+  created_at: string;
+  user: IUser;
+}
 
 export interface ICar {
   id: string;
@@ -18,6 +24,7 @@ export interface ICar {
   updated_at: string;
   is_active: boolean;
   images: IImage[];
+  comments: IComment[];
 }
 
 export interface IUser {
@@ -83,8 +90,8 @@ export interface ICarRetrieve {
   updated_at: string;
   is_active: boolean;
   images: IImage[];
+  comments: IComment[];
   user: IUser;
-  comments: ICarComments[]
 }
 
 export interface IFipeCar {

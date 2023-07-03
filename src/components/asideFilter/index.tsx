@@ -1,21 +1,48 @@
+import { ICarRetrieve } from "@/interfaces";
 import { api } from "@/services/api";
 import React, { useEffect, useState } from "react";
 
-export const AsideFilter: React.FC = () => {
-  const [info, setInfo] = useState([]);
+interface iInfoProps {
+  brands: [];
+  models: [];
+  colors: [];
+  years: [];
+  fuel_types: [];
+}
+
+export const AsideFilter: React.FC = ({ setCars }: ICarRetrieve[] | any) => {
+  const [info, setInfo] = useState<iInfoProps>({} as any);
+  const [isLoading, setIsLoading] = useState(true);
+  const [valueClick, setValueClick] = useState({} as any);
 
   useEffect(() => {
     const getFilter = async () => {
       try {
         const response = await api.get("filters");
-        const { brands, models, colors, fuel_types } = response.data;
-        setInfo(brands);
+        setInfo(response.data);
       } catch (e: any) {
         console.log(e);
+      } finally {
+        setIsLoading(false);
       }
     };
     getFilter();
   }, []);
+
+  useEffect(() => {
+    const getInfoFilter = async () => {
+      try {
+        const response = await api.get(`cars?${valueClick}`);
+        setCars(response.data);
+      } catch (e: any) {
+        console.log(e);
+      }
+    };
+    getInfoFilter();
+  }, [valueClick]);
+
+  if (isLoading) return null;
+
   return (
     <>
       <aside className="flex flex-col max-md:hidden max-w-xs select-text ml-4">
@@ -23,16 +50,20 @@ export const AsideFilter: React.FC = () => {
           <div className="font-lexend font-semibold text-2xl my-8">Marca</div>
           <ul>
             <li>
-              <span className="cursor-pointer font-lexend font-medium text-lg text-grey3">
+              <button
+                onClick={() => setValueClick("")}
+                className="cursor-pointer font-lexend font-medium text-lg text-grey3"
+              >
                 General Motors
-              </span>
+              </button>
             </li>
-
-            {info.map((inf) => {
-              console.log(inf)
+            {info.brands.map((inf: string) => {
               return (
-                <li key={+1}>
-                  <button className="cursor-pointer font-lexend font-medium text-lg text-grey3">
+                <li key={inf}>
+                  <button
+                    onClick={() => setValueClick(`brand=${inf}`)}
+                    className="cursor-pointer font-lexend font-medium text-lg text-grey3"
+                  >
                     {inf}
                   </button>
                 </li>
@@ -43,106 +74,52 @@ export const AsideFilter: React.FC = () => {
         <div className="flex flex-col">
           <div className="font-lexend font-semibold text-2xl my-8">Modelo</div>
           <ul className="select-text inline">
-            <li>
-              <span className="cursor-pointer font-lexend font-medium text-lg text-grey3">
-                Civic
-              </span>
-            </li>
-            <li>
-              <span className="cursor-pointer font-lexend font-medium text-lg text-grey3">
-                Corolla
-              </span>
-            </li>
-            <li>
-              <span className="cursor-pointer font-lexend font-medium text-lg text-grey3">
-                Cruze
-              </span>
-            </li>
-            <li>
-              <span className="cursor-pointer font-lexend font-medium text-lg text-grey3">
-                Fit
-              </span>
-            </li>
-            <li>
-              <span className="cursor-pointer font-lexend font-medium text-lg text-grey3">
-                Gol
-              </span>
-            </li>
+            {info.models.map((inf: string) => {
+              return (
+                <li key={inf}>
+                  <button
+                    onClick={() => setValueClick(`model=${inf}`)}
+                    className="cursor-pointer font-lexend font-medium text-lg text-grey3"
+                  >
+                    {inf}
+                  </button>
+                </li>
+              );
+            })}
           </ul>
         </div>
         <div className="flex flex-col">
           <div className="font-lexend font-semibold text-2xl my-8">Cor</div>
           <ul>
-            <li>
-              <span className="cursor-pointer font-lexend font-medium text-lg text-grey3">
-                Azul
-              </span>
-            </li>
-            <li>
-              <span className="cursor-pointer font-lexend font-medium text-lg text-grey3">
-                Branca
-              </span>
-            </li>
-            <li>
-              <span className="cursor-pointer font-lexend font-medium text-lg text-grey3">
-                Cinza
-              </span>
-            </li>
-            <li>
-              <span className="cursor-pointer font-lexend font-medium text-lg text-grey3">
-                Prata
-              </span>
-            </li>
-            <li>
-              <span className="cursor-pointer font-lexend font-medium text-lg text-grey3">
-                Preta
-              </span>
-            </li>
-            <li>
-              <span className="cursor-pointer font-lexend font-medium text-lg text-grey3">
-                Verde
-              </span>
-            </li>
+            {info.colors.map((inf: string) => {
+              return (
+                <li key={inf}>
+                  <button
+                    onClick={() => setValueClick(`color=${inf}`)}
+                    className="cursor-pointer font-lexend font-medium text-lg text-grey3"
+                  >
+                    {inf}
+                  </button>
+                </li>
+              );
+            })}
           </ul>
         </div>
         <div className="flex flex-col">
           <div className="font-lexend font-semibold text-2xl my-8">Ano</div>
           <ul>
-            <li>
-              <span className="cursor-pointer font-lexend font-medium text-lg text-grey3">
-                2022
-              </span>
-            </li>
-            <li>
-              <span className="cursor-pointer font-lexend font-medium text-lg text-grey3">
-                2021
-              </span>
-            </li>
-            <li>
-              <span className="cursor-pointer font-lexend font-medium text-lg text-grey3">
-                2018
-              </span>
-            </li>
-            <li>
-              <span className="cursor-pointer font-lexend font-medium text-lg text-grey3">
-                2015
-              </span>
-            </li>
-            <li>
-              <span className="cursor-pointer font-lexend font-medium text-lg text-grey3">
-                2013
-              </span>
-            </li>
-            <li>
-              <span className="cursor-pointer font-lexend font-medium text-lg text-grey3">
-                2012
-              </span>
-            </li>
-            <li>
-              <span className="cursor-pointer font-lexend font-medium text-lg text-grey3">
-                2010
-              </span>
-            </li>
+            {info.years.map((inf: string) => {
+              return (
+                <li key={inf}>
+                  <button
+                    onClick={() => setValueClick(`years=${inf}`)}
+                    className="cursor-pointer font-lexend font-medium text-lg text-grey3"
+                  >
+                    {inf}
+                  </button>
+                </li>
+              );
+            })}
           </ul>
         </div>
         <div className="flex flex-col">
@@ -150,26 +127,18 @@ export const AsideFilter: React.FC = () => {
             Combustivel
           </div>
           <ul>
-            <li>
-              <span className="cursor-pointer font-lexend font-medium text-lg text-grey3">
-                Diesel
-              </span>
-            </li>
-            <li>
-              <span className="cursor-pointer font-lexend font-medium text-lg text-grey3">
-                Etanol
-              </span>
-            </li>
-            <li>
-              <span className="cursor-pointer font-lexend font-medium text-lg text-grey3">
-                Gasolina
-              </span>
-            </li>
-            <li>
-              <span className="cursor-pointer font-lexend font-medium text-lg text-grey3">
-                Flex
-              </span>
-            </li>
+            {info.fuel_types.map((inf: string) => {
+              return (
+                <li key={inf}>
+                  <button
+                    onClick={() => setValueClick(`fuel_type=${inf}`)}
+                    className="cursor-pointer font-lexend font-medium text-lg text-grey3"
+                  >
+                    {inf}
+                  </button>
+                </li>
+              );
+            })}
           </ul>
         </div>
         <div className="flex flex-col">
@@ -179,11 +148,13 @@ export const AsideFilter: React.FC = () => {
               className=" text-center w-24 h-10 bg-grey5"
               type="number"
               placeholder="Mínima"
+              onBlur={(e) => setValueClick(`min_km=${e.target.value}`)}
             />
             <input
               className=" text-center w-24 h-10 bg-grey5"
               type="number"
               placeholder="Máxima"
+              onBlur={(e) => setValueClick(`max_km=${e.target.value}`)}
             />
           </div>
         </div>
@@ -194,11 +165,13 @@ export const AsideFilter: React.FC = () => {
               className=" text-center w-24 h-10 bg-grey5"
               type="number"
               placeholder="Mínima"
+              onBlur={(e) => setValueClick(`min_price=${e.target.value}`)}
             />
             <input
               className=" text-center w-24 h-10 bg-grey5"
               type="number"
               placeholder="Máxima"
+              onBlur={(e) => setValueClick(`max_price=${e.target.value}`)}
             />
           </div>
         </div>
