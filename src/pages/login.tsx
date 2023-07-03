@@ -90,11 +90,12 @@ const Login: React.FC = () => {
         <h2 className="text-sm font-normal text-center text-grey2">
           Ainda não possui conta ?
         </h2>
-        <Button
-          type="button"
-          text="Cadastrar"
-          className="p-2 border-2 border-grey4 text-grey0 font-semibold rounded h-12"
-        />
+        <Link
+          className="border-2 border-grey6 rounded h-12 font-semibold text-center pt-[10px]"
+          href={"/register"}
+        >
+          Cadastrar
+        </Link>
       </form>
       <Footer />
     </div>
