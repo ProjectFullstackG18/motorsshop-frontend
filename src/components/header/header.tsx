@@ -22,11 +22,11 @@ export const Header = () => {
       } catch (error) {}
     };
     checkIsLogged();
-  });
+  }, []);
 
   return (
     <header className="h-20 border-b-2 bg-whiteFixed border-grey6">
-      <div className=" pr-2 max-w-screen-2xl mx-auto flex justify-between items-center h-full">
+      <div className=" pr-2 pl-4 max-w-screen-2xl mx-auto flex justify-between items-center h-full">
         <Link href={"/"}>
           <h2 className="text-transparent bg-gradient-to-r from-grey0 to-brand1 bg-clip-text text-3xl font-bold">
             Motors <span className="text-transparent text-lg">Shop</span>

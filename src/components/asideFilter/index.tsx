@@ -13,7 +13,7 @@ interface iInfoProps {
 export const AsideFilter: React.FC = ({ setCars }: ICarRetrieve[] | any) => {
   const [info, setInfo] = useState<iInfoProps>({} as any);
   const [isLoading, setIsLoading] = useState(true);
-  const [valueClick, setValueClick] = useState({} as any);
+  const [valueClick, setValueClick] = useState({} as string | number);
 
   useEffect(() => {
     const getFilter = async () => {
@@ -49,14 +49,6 @@ export const AsideFilter: React.FC = ({ setCars }: ICarRetrieve[] | any) => {
         <div className="flex flex-col">
           <div className="font-lexend font-semibold text-2xl my-8">Marca</div>
           <ul>
-            <li>
-              <button
-                onClick={() => setValueClick("")}
-                className="cursor-pointer font-lexend font-medium text-lg text-grey3"
-              >
-                General Motors
-              </button>
-            </li>
             {info.brands.map((inf: string) => {
               return (
                 <li key={inf}>
