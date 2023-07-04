@@ -1,4 +1,75 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Bem-Vindo ao Motors Shop! 🚗🚗
+
+Motors Shop é uma Marketplace para compra e venda de automoveis!
+
+## Tecnologias Utilizadas 👨‍💻👨‍💻
+
+Nesse projeto foi utilizado:
+
+- [NodeJS](https://nodejs.org/en/)
+
+- [TypeScript](https://www.typescriptlang.org/)
+
+- [Next.js](https://nextjs.org/)
+
+- [Tailwind CSS](https://tailwindcss.com/)
+
+## Funcionalidades do Projeto
+
+Conta não-logada pode fazer:
+
+- criar uma conta
+- fazer login no website
+- recuperar senha
+- acessar homepage do website
+- visualizar automoveis disponíveis no website
+- visualizar informações
+- filtrar os automoveis disponíveis no website
+
+Conta logada (vendedor) pode fazer:
+
+- editar as informações do usuário
+- visualizar automoveis disponíveis no website
+- filtrar os automoveis disponíveis no website
+- criar, editar e deletar veiculos cadastrados pelo usuário
+- criar, editar e deletar comentários do usuário feito na página do veículo
+
+## Rodar o projeto localmente
+
+- primeiro inicie seu terminal (git bash ou powershell)
+
+- instale as dependências com o comando abaixo:
+
+```bash
+
+npm install
+
+```
+
+- agora digite esse comando pra rodar o server:
+
+```bash
+
+npm run dev
+
+```
+
+- abra o link [http://localhost:3001](http://localhost:3001) e o projeto está pronto pra ser iniciado!
+
+ATENÇÃO: para o projeto rodar localmente é necessário que esse projeto está rodando junto com a back-end do
+projeto (https://github.com/ProjectFullstackG18/motorsshop-backend) e que tenha sido iniciada DEPOIS da API ter sido iniciada;
+
+## MADE WITH ❤️ BY:
+
+- [João Vitor Meira](https://github.com/jvnagos21)
+- [Márcio Calenzo](https://github.com/MarcioCalenzo)
+- [Matheus Dávila](https://github.com/drmatheus)
+- [Emanuel Luiz](https://github.com/emanuelluiz01)
+- [Eduardo Portela](https://github.com/Eduardo-Portela)
+
+- Product owner [Paulo Mello](https://github.com/paulomellokenzie)
+
+<!-- This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
 
@@ -35,4 +106,4 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details. -->
