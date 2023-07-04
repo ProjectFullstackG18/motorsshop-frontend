@@ -14,6 +14,7 @@ const ProductView: React.FC = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   const [car, setCar] = useState<ICarRetrieve>({} as ICarRetrieve);
+  // console.log(car.user.phone);
 
   const router = useRouter();
   const { id } = router.query;
@@ -66,11 +67,17 @@ const ProductView: React.FC = () => {
                 })}
               </span>
             </div>
-            <Button
-              text="Comprar"
-              type="button"
-              className={"bg-brand1 w-32 rounded p-1 text-brand4"}
-            ></Button>
+            <a
+              href={`https://api.whatsapp.com/send?phone=55${
+                car.user.phone
+              }&text=O%20carro%20${car.brand.toUpperCase()}%20-%20${car.model.toUpperCase()}%20ainda%20está%20disponivel?`}
+              target="_blank"
+              className={
+                "bg-brand1 w-32 rounded p-1 text-brand4 text-center font-semibold"
+              }
+            >
+              Comprar
+            </a>
           </div>
           <div className="flex justify-center w-full flex-col gap-8 bg-whiteFixed p-6 rounded">
             <h2 className="text-xl font-semibold">Descrição</h2>
