@@ -27,6 +27,13 @@ export interface ICar {
   comments: IComment[];
 }
 
+export interface IUserCar {
+  email: string
+  id: string
+  name: string
+  seller: boolean
+}
+
 export interface IUser {
   id: string;
   name: string;
@@ -66,6 +73,13 @@ export interface IUserAPI {
   createdAt: string;
   updatedAt: string;
   cars: ICar[];
+}
+
+export interface ICarComments{
+  id: string;
+  comment: string;
+  created_at: string;
+  user: IUser
 }
 
 export interface ICarRetrieve {

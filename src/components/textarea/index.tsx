@@ -1,8 +1,8 @@
 import { TextareaHTMLAttributes } from "react";
 
 interface ITextareaProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
-  labelName: string;
-  labelText: string;
+  labelName?: string;
+  labelText?: string;
   name?: string;
   register?: any;
   disable?: boolean;
@@ -15,6 +15,8 @@ export const Textarea = ({
   register,
   disable,
   name,
+  cols,
+  rows,
   ...props
 }: ITextareaProps) => {
   return (
@@ -27,6 +29,8 @@ export const Textarea = ({
         disabled={disable}
         required
         placeholder={placeholder}
+        cols={cols}
+        rows={rows}
         {...register}
         {...props}
       />

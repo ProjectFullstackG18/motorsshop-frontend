@@ -3,7 +3,7 @@ import React from "react";
 interface IButtonProps {
   type: "button" | "submit";
   className?: string;
-  text: string;
+  text?: string | any;
   callback?: () => void;
   disable?: boolean;
 }

@@ -23,6 +23,7 @@ export const ModalM = ({
       isOpen={isOpen}
       style={{
         overlay: {
+          zIndex: 99,
           backgroundColor: "rgba(0, 0, 0, 0.5)",
         },
       }}
