@@ -3,7 +3,6 @@ import { api } from "@/services/api";
 import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { Button } from "../button/button";
 
-
 interface iInfoProps {
   brands: [];
   models: [];
