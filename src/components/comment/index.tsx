@@ -26,7 +26,7 @@ export const CommentCard = ({ comment, userComent }: IPropsCard) => {
     const timeAgo = moment(timeMoment).fromNow()
   return (
     <div>
-      <div className="flex items-center	mb-3 gap-3">
+      <div className="flex items-center	mb-3 gap-3 ">
         <p className="bg-brand1 text-whiteFixed font-medium rounded-full w-7 h-7 text-center align-middle pt-1 text-sm ">
           {getInitials(userComent.name)}
         </p>

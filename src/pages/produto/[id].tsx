@@ -4,12 +4,11 @@ import { CommentCard } from "@/components/comment";
 import { Footer } from "@/components/footer/footer";
 import { Header } from "@/components/header/header";
 import { Subcontainer } from "@/components/subcontainer/subcontainer";
-import { ICarComments, ICarRetrieve } from "@/interfaces";
+import { ICarComments, ICarRetrieve, IUserCar } from "@/interfaces";
 import { api } from "@/services/api";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import moment from "moment";
 import { Textarea } from "@/components/textarea";
 import { useForm } from "react-hook-form";
 import {BsTrash, BsPencil} from "react-icons//bs"
@@ -21,9 +20,19 @@ const ProductView: React.FC = () => {
   const [car, setCar] = useState<ICarRetrieve>({} as ICarRetrieve);
   const [ comments, setComments] = useState<ICarComments[]>([])
   const [modalEditComment, setModalEditComment] = useState(false);
-
+  const [user, setUser] = useState<IUserCar>()
+  const [commentId, setCommentId] = useState<string>("")
   const router = useRouter();
   const { id } = router.query;
+
+
+  useEffect(() => {
+    const getUser = async() => {
+      const response = await api.get(`users/`);
+      setUser(response.data)
+    }
+    getUser()
+  },[])
 
   const {
     register,
@@ -35,13 +44,14 @@ const ProductView: React.FC = () => {
   const handleComment = async (comment: any) => {
     try {
       const response = await api.post(`cars/${id}/comments/`, comment);
-      comments.push(comment)
+      comments.push(response.data)
       setValue("comment", "")
     } catch (e: any) {
       console.log(e.response);
     }
   };
-  console.log(modalEditComment)
+
+
   const deleteComment = async(id: string) => {
     try {
       const response = await api.delete(`cars/comments/${id}`);
@@ -59,7 +69,6 @@ const ProductView: React.FC = () => {
           const { data: carAPI }: { data: ICarRetrieve } = await api.get(
             `cars/${id}`
           );
-          // console.log(carAPI.comments[0].created_at);
           setComments(carAPI.comments)
           setCar(carAPI);
         } catch (e) {
@@ -162,31 +171,41 @@ const ProductView: React.FC = () => {
           </div>
         </Subcontainer>
 
-        <Subcontainer classname="w-screen lg:max-w-[68%]">
+        <Subcontainer classname="w-screen lg:max-w-[68%] mb-2">
           <div className="flex justify-center w-full flex-col gap-8 bg-whiteFixed p-6 rounded">
             <h2 className="text-xl font-semibold">Comentários</h2>
             {comments.map((comment, id) =>(
               <>
                 <CommentCard key={id} comment={comment} userComent={car.user} />
-                <div key={comment.id} className=" flex gap-4">
+                <div className=" flex gap-4">
                   <div onClick={() => setModalEditComment(true)} className="cursor-pointer">
-                    <BsPencil />
+                    <BsPencil onClick={() => setCommentId(comment.id)}/>
                   </div>
                   <Button text={<BsTrash />} type="button" callback={() => deleteComment(comment.id)} className="cursor-pointer"/>
 
                 </div>
+                {modalEditComment ? 
                 <ModalEditComment 
-                  modalEditComment={modalEditComment} 
-                  setModalEditComment={setModalEditComment}
-                  comment={comment}
-                  id={comment.id}
+                modalEditComment={modalEditComment} 
+                setModalEditComment={setModalEditComment}
+                comment={comment}
+                id={commentId}
+                key={comment.id}
+                comments={comments}
+                setComments={setComments}
                 />
+                : ""}
               </>
             ))}
           </div>
         </Subcontainer>
-        
-        <Subcontainer classname="w-screen lg:max-w-[67%] p-8 bg-whiteFixed ml-2">
+        {comments.length == 0 ? 
+        <Subcontainer classname="w-screen lg:max-w-[67%] p-8 bg-whiteFixed ml-2 mb-2">
+          <h2>Não há comentários ainda seja o primeiro a comentar!</h2>
+        </Subcontainer>
+          : ""}
+        {user?
+        <Subcontainer classname="w-screen lg:max-w-[67%] p-8 bg-whiteFixed ml-2 ">
         <div className="flex items-center	mb-3 gap-3">
           <p className="bg-brand1 text-whiteFixed font-medium rounded-full w-7 h-7 text-center align-middle pt-1 text-sm ">
             {getInitials(car.user.name)}
@@ -202,7 +221,7 @@ const ProductView: React.FC = () => {
           <p onClick={() => setValue("comment", "Incrível!")} className="bg-grey5 p-1 pl-4 pr-4 rounded-full cursor-pointer">Incrível!</p>
           <p onClick={() => setValue("comment", "Recomendarei para os meus amigos.")} className="bg-grey5 p-1 pl-4 pr-4 rounded-full cursor-pointer">Recomendarei para os meus amigos!</p>
         </div>
-        </Subcontainer>
+        </Subcontainer> :""}
       </main>
       <Footer></Footer>
     </div>

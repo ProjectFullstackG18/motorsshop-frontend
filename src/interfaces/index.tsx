@@ -27,6 +27,13 @@ export interface ICar {
   comments: IComment[];
 }
 
+export interface IUserCar {
+  email: string
+  id: string
+  name: string
+  seller: boolean
+}
+
 export interface IUser {
   id: string;
   name: string;
