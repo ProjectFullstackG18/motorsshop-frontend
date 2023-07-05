@@ -42,11 +42,19 @@ export default function Home() {
 
       <div className="flex container m-auto">
         <AsideFilter setCars={setCars} />
-        <Gallery>
-          {cars.map((car) => {
-            return <CardProduct key={car.id} car={car} user={car.user} />;
-          })}
-        </Gallery>
+        {cars.length > 0 ? (
+          <Gallery>
+            {cars.map((car) => (
+              <CardProduct key={car.id} car={car} user={car.user} />
+            ))}
+          </Gallery>
+        ) : (
+          <div className="w-inherit">
+            <h1 className=" text-grey2 font-lexend font-semibold text-2xl my-10 text-center">
+              Poxa, infelizmente ainda não possui nenhum anúncio ativo.
+            </h1>
+          </div>
+        )}
       </div>
       <div className="md:hidden flex gap-5 flex-col justify-center items-center">
         <Button

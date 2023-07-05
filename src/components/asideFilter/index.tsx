@@ -1,6 +1,8 @@
 import { ICarRetrieve } from "@/interfaces";
 import { api } from "@/services/api";
-import React, { useEffect, useState } from "react";
+import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { Button } from "../button/button";
+
 
 interface iInfoProps {
   brands: [];
@@ -10,7 +12,11 @@ interface iInfoProps {
   fuel_types: [];
 }
 
-export const AsideFilter: React.FC = ({ setCars }: ICarRetrieve[] | any) => {
+export const AsideFilter = ({
+  setCars,
+}: {
+  setCars: Dispatch<SetStateAction<ICarRetrieve[]>>;
+}) => {
   const [info, setInfo] = useState<iInfoProps>({} as any);
   const [isLoading, setIsLoading] = useState(true);
   const [valueClick, setValueClick] = useState({} as string | number);
@@ -39,7 +45,7 @@ export const AsideFilter: React.FC = ({ setCars }: ICarRetrieve[] | any) => {
       }
     };
     getInfoFilter();
-  }, [valueClick]);
+  }, [setCars, valueClick]);
 
   if (isLoading) return null;
 
@@ -104,7 +110,7 @@ export const AsideFilter: React.FC = ({ setCars }: ICarRetrieve[] | any) => {
               return (
                 <li key={inf}>
                   <button
-                    onClick={() => setValueClick(`years=${inf}`)}
+                    onClick={() => setValueClick(`year=${inf}`)}
                     className="cursor-pointer font-lexend font-medium text-lg text-grey3"
                   >
                     {inf}
@@ -167,6 +173,12 @@ export const AsideFilter: React.FC = ({ setCars }: ICarRetrieve[] | any) => {
             />
           </div>
         </div>
+        <Button
+          type={"button"}
+          text={"Limpar filtros"}
+          className="w-full bg-brand2 text-grey10 h-12 rounded mb-8 font-semibold"
+          callback={() => setValueClick("")}
+        />
       </aside>
     </>
   );
