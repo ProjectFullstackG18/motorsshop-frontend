@@ -9,6 +9,7 @@ import { api } from "@/services/api";
 import Link from "next/link";
 import { IUserLogin } from "@/interfaces";
 import { useRouter } from "next/router";
+import { toast } from "react-toastify";
 
 const Login: React.FC = () => {
   const route = useRouter();
@@ -32,9 +33,13 @@ const Login: React.FC = () => {
     try {
       const { data } = await api.post("login", dataLogin);
       localStorage.setItem("motorshop@token", data.token);
-      route.push("/");
+      toast.success("Login realizado com sucesso!");
+
+      setTimeout(() => {
+        route.push("/");
+      }, 3000);
     } catch (e: any) {
-      console.log(e.response);
+      toast.error("Usuário não encontrado!");
     }
   };
 
