@@ -41,13 +41,16 @@ module.exports = {
       random10: "#6100FF",
       random11: "#5700E3",
       random12: "#30007D",
-      transparent: "rgba(0,0,0,0.0)"
+      transparent: "rgba(0,0,0,0.0)",
     },
     extend: {
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+      },
+      width: {
+        inherit: "inherit",
       },
     },
   },
