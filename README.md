@@ -1,6 +1,6 @@
 # Bem-Vindo ao Motors Shop! 🚗🚗
 
-Motors Shop é uma Marketplace para compra e venda de automoveis!
+Motors Shop é uma Marketplace para compra e venda de automoveis !
 
 ## Tecnologias Utilizadas 👨‍💻👨‍💻
 
