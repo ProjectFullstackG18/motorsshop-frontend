@@ -16,7 +16,7 @@ Nesse projeto foi utilizado:
 
 ## Funcionalidades do Projeto
 
-Conta não-logada pode fazer:
+Conta não-logada pode fazer :
 
 - criar uma conta
 - fazer login no website
