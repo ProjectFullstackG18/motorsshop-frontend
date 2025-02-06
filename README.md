@@ -36,7 +36,7 @@ Conta logada (vendedor) pode fazer:
 
 ## Rodar o projeto localmente
 
-- primeiro inicie seu terminal (git bash ou powershell)
+- primeiro inicie seu terminal (git bash ou powershell )
 
 - instale as dependências com o comando abaixo:
 
